@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="em">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello name</title>
+</head>
+
+<!--
 <div class="Copy" style="width: 1440px; height: 1103px; position: relative; background: white">
     <div class="Rectangle86" style="width: 1440px; height: 100px; left: 0px; top: 0px; position: absolute; background: #14ED9F"></div>
     <div class="SacShelters" style="width: 332px; height: 115px; left: 99px; top: 15px; position: absolute; color: black; font-size: 40px; font-family: Inter; font-weight: 700; word-wrap: break-word">Sac Shelters</div>
@@ -16,3 +27,32 @@
     <div class="Account" style="width: 153px; height: 54px; left: 829px; top: 81px; position: absolute; color: black; font-size: 30px; font-family: Inter; font-weight: 700; word-wrap: break-word">Account</div>
     <div class="Settings" style="width: 165px; height: 54px; left: 1113px; top: 81px; position: absolute; color: black; font-size: 30px; font-family: Inter; font-weight: 700; word-wrap: break-word">Settings</div>
   </div>
+-->
+
+  <body>
+
+      <h1>Hello, what is your name?</h1>
+      <input id="userInput"> <br> <br>
+      <button onclick="myFunction()">  Submit  </button>
+
+      <h1 id="message">   </h1>
+
+      <style>
+        body{background: darkslategray; text-align: center; color: floralwhite;}
+      </style>
+
+      <script>
+          function myFunction() {
+            let userInput = document.querySelector("#userInput");
+            let message = document.querySelector("#message");
+            
+            message.innerHTML = "Welcome to my webpage " + userInput.value;
+
+
+          }
+
+
+      </script>
+  </body>
+
+  </html>
