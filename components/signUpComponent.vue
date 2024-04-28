@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <label>Email: </label>
-    <input type="email" required v-model = "email">
+    <input v-model = "email" type="email" required>
 
     <label>Password: </label>
-    <input type="password" required v-model = "password">
+    <input v-model = "password" type="password" required>
 
     <div class = "submit">
     <button>Create an Account</button>

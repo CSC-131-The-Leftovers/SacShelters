@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <label>Phone Number: </label>
-    <input type="integer" required v-model = "phoneNum">
+    <input v-model = "phoneNum" type="integer" required>
 
     <label>Message: </label>
-    <input type="string" required v-model = "Message">
+    <input v-model = "Message" type="string" required>
 
     <div class = "submit">
     <button>Send a message</button>

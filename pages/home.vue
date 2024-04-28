@@ -1,16 +1,7 @@
 <template>
-   
-   <p>Hello world</p>
-
+  <p>Hello world</p>
 </template>
 
-<script setup>
-  
- 
-</script>
+<script setup></script>
 
-<style>
-  
-  
-
-</style>
+<style></style>

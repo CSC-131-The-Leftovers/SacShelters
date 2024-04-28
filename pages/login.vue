@@ -1,25 +1,32 @@
 <script setup lang="ts">
-const supabase = useSupabaseClient()
-const email = ref('')
+const supabase = useSupabaseClient();
+const email = ref("");
+const password = ref("");
+const errorMsg = ref("");
 
-const signInWithOtp = async () => {
-  const { error } = await supabase.auth.signInWithOtp({
-    email: email.value,
-    options: {
-      emailRedirectTo: 'http://localhost:3000/confirm',
-    }
-  })
-  if (error) console.log(error)
+async function signIn() {
+  try {
+    supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    });
+  } catch (error) {
+    errorMsg.value = error.message;
+  }
 }
 </script>
 <template>
   <div>
-    <button @click="signInWithOtp">
-      Sign In with E-Mail
-    </button>
-    <input
-      v-model="email"
-      type="email"
-    />
+    <section>
+      <form @submit.prevent="signIn">
+        <input v-model="email" type="email" name="email" placeholder="Email" >
+        <input
+          v-model="password"
+          type="text"
+          name="password"
+          placeholder="Password"
+        >
+      </form>
+    </section>
   </div>
 </template>
