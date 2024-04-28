@@ -17,8 +17,8 @@
         <button class="btn btn-primary">Create an Account</button>
       </div>
     </form>
-    <div class="alert alert-error">{{ errorMsg }}</div>
-    <div class="alert alert-success">{{ successMsg }}</div>
+    <div v-if="errorMsg" class="alert alert-error">{{ errorMsg }}</div>
+    <div v-if="successMsg" class="alert alert-success">{{ successMsg }}</div>
   </div>
 </template>
 
@@ -30,6 +30,8 @@ const errorMsg = ref("");
 const successMsg = ref("");
 
 async function signUp() {
+  errorMsg.value = "";
+  successMsg.value = "";
   try {
     const { error } = await supabase.auth.signUp({
       email: email.value,
