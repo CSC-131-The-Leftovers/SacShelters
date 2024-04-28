@@ -1,18 +1,24 @@
 <template>
-  <div>
-    <form @submit.prevent="signUp">
-      <label>Email: </label>
-      <input v-model="email" type="email" required />
-      <label>Password: </label>
-      <input v-model="password" type="password" required />
+  <div class="card mx-auto w-96 space-y-4 bg-neutral p-8 text-neutral-content">
+    <form class="space-y-2" @submit.prevent="signUp">
+      <input
+        v-model="email"
+        required
+        type="text"
+        class="input w-full"
+        placeholder="Email" />
+      <input
+        v-model="password"
+        required
+        type="password"
+        class="input flex w-full gap-2"
+        placeholder="Password" />
       <div class="submit">
-        <button>Create an Account</button>
+        <button class="btn btn-primary">Create an Account</button>
       </div>
     </form>
-    <p>email: {{ email }}</p>
-    <p>pass: {{ password }}</p>
-    <p>error: {{ errorMsg }}</p>
-    <p>success: {{ successMsg }}</p>
+    <div class="alert alert-error">{{ errorMsg }}</div>
+    <div class="alert alert-success">{{ successMsg }}</div>
   </div>
 </template>
 
@@ -32,22 +38,11 @@ async function signUp() {
     if (error) throw error;
     successMsg.value = "Check your email to confirm your account.";
   } catch (error) {
-    errorMsg.value = error.message;
+    if (error instanceof Error) {
+      errorMsg.value = error.message;
+    } else {
+      console.log("Unexpected error", error);
+    }
   }
 }
 </script>
-
-<style scoped>
-#app {
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-body {
-  margin: 0;
-  background: #eee;
-}
-</style>
