@@ -8,6 +8,7 @@
             <li><NuxtLink to="confirm">Confirm</NuxtLink></li>
             <li><NuxtLink to="login">Login</NuxtLink></li>
             <li><NuxtLink to="testredirect">test redir</NuxtLink></li>
+            <li><NuxtLink to="signUp">sign up</NuxtLink></li>
 
           </ul>
   
