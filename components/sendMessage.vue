@@ -1,17 +1,17 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <label>Phone Number: </label>
-    <input v-model="phoneNum" type="integer" required />
+    <input v-model="phoneNum" type="number" required />
 
     <label>Message: </label>
-    <input v-model="Message" type="string" required />
+    <input v-model="remind" type="string" required />
 
     <div class="submit">
-      <button>Send a message</button>
+      <button type="submit">Send a message</button>
     </div>
   </form>
   <p>phoneNum: {{ phoneNum }}</p>
-  <p>pass: {{ Message }}</p>
+  <p>pass: {{ remind }}</p>
 </template>
 
 <script>
@@ -19,18 +19,19 @@ export default {
   data() {
     return {
       phoneNum: "",
-      Message: "",
+      remind: "",
     };
   },
   methods: {
     handleSubmit() {
+      console.log("Hello world");
       fetch("https://textbelt.com/text", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          phone: phoneNum,
-          message: Message,
-          key: "textbelt",
+          phone: this.phoneNum,
+          message: this.remind,
+          key: "036cc0b0e840bcbf56983e97475c379b48e290a4c4VAElcfsgfeOOtAt2XWjJszu",
         }),
       })
         .then((response) => {
@@ -38,6 +39,9 @@ export default {
         })
         .then((data) => {
           console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error sending message:", error);
         });
     },
   },
