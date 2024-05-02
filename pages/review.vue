@@ -1,6 +1,6 @@
 <template>
   <div class="bg-cover bg-center min-h-screen" style="background-image: url('/stephen-leonardi-ExpyK79Dx_w-unsplash.jpg')">
-    <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-black bg-opacity-50 min-h-screen flex items-center justify-center">
       <div class="bg-white p-8 rounded-lg shadow-lg">
         <h1 class="text-3xl font-bold text-green-900 mb-6">Write a Review</h1>
         <form @submit.prevent="submitReview" class="space-y-4">
@@ -96,7 +96,8 @@ const submitReview = async () => {
       service_type: serviceType.value,
       experience: '', // Add any additional columns as needed
       resource_id: null, // Set a default value or provide the appropriate value
-      location: '', // Add any additional columns as needed
+      facilityName: '', // Add any additional columns as needed
+      created_at: new Date(), // Add the current timestamp
     }])
 
   if (error) {
@@ -110,6 +111,8 @@ const submitReview = async () => {
     serviceType.value = ''
   }
 }
+
+
 
 
 </script>
