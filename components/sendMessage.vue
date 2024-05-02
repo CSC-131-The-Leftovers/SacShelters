@@ -13,8 +13,6 @@
       <button type="submit">Send a message</button>
     </div>
   </form>
-  <p>phoneNum: {{ phoneNum }}</p>
-  <p>pass: {{ remind }}</p>
 </template>
 
 <script>
@@ -144,7 +142,7 @@ select {
   box-sizing: border-box;
   border: none;
   border-bottom: 1px solid #ddd;
-  color: #555;
+  color: #dbdbdb;
 }
 input[type="checkbox"] {
   display: inline-block;
