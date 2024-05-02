@@ -16,13 +16,15 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient();
 
-const { data: resources } = await useAsyncData("resources", async () => {
+const { data } = await useAsyncData("resources", async () => {
   const { data } = await supabase
     .from("resource")
     .select()
     .eq("resource_type", "Shelter");
   return data;
 });
+
+const resources = ref(data);
 </script>
 
 <style scoped>
