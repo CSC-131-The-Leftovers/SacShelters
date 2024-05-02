@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="js">
 const supabase = useSupabaseClient();
 
 const { data } = await useAsyncData("resources", async () => {
