@@ -14,7 +14,7 @@
             </div>
             <p class="text-gray-800">{{ review.review_text }}</p>
             <p class="text-sm text-gray-500">Facility: {{ review.facility_name }}</p>
-            <p class="text-sm text-gray-500">Location: {{ review.location }}</p>
+            <p class="text-sm text-gray-500">facilityName: {{ review.facilityName }}</p>
             <p class="text-sm text-gray-500">Experience: {{ review.experience }}</p>
             <p class="text-sm text-gray-500">User ID: {{ review.user_id }}</p>
           </div>

@@ -1,7 +1,8 @@
 <template>
   <div class="navbar bg-neutral">
     <div class="navbar-start">
-      <NuxtLink to="/" class="btn btn-ghost text-xl text-primary">
+      <NuxtLink to="/" class="btn btn-ghost flex items-center text-xl text-primary">
+        <img src="/THE HOMELY FOUNDATION (1).png" alt="Logo" class="h-10 mr-1" />
         SacShelters
       </NuxtLink>
     </div>

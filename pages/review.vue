@@ -96,7 +96,7 @@ const submitReview = async () => {
       service_type: serviceType.value,
       experience: '', // Add any additional columns as needed
       resource_id: null, // Set a default value or provide the appropriate value
-      location: '', // Add any additional columns as needed
+      facilityName: '', // Add any additional columns as needed
       created_at: new Date(), // Add the current timestamp
     }])
 
