@@ -6,6 +6,9 @@
     <label>Message: </label>
     <input v-model="remind" type="string" required />
 
+    <label>Date and Time: </label>
+    <input v-model="dateTime" type="datetime-local" required />
+
     <div class="submit">
       <button type="submit">Send a message</button>
     </div>
@@ -28,9 +31,13 @@ export default {
     async handleSubmit() {
       const supabase = useSupabaseClient();
       try {
-        const { data, error } = await supabase
-          .from("Messages")
-          .insert([{ phone_number: this.phoneNum, message: this.remind }]);
+        const { data, error } = await supabase.from("Messages").insert([
+          {
+            phone_number: this.phoneNum,
+            message: this.remind,
+            dateTime: this.dateTime,
+          },
+        ]);
 
         if (error) {
           console.error("Error adding reminder:", error.message);
