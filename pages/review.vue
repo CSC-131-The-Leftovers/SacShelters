@@ -4,16 +4,39 @@
       <h1 class="text-3xl font-bold text-white mb-6">Write a Review</h1>
       <form @submit.prevent="submitReview" class="space-y-4">
         <div>
-          <label class="text-white font-semibold">Rating (1-5):</label>
+          <label class="text-white font-semibold">Facility Name:</label>
           <input
-            type="number"
-            v-model.number="rating"
-            min="1"
-            max="5"
+            type="text"
+            v-model="facilityName"
             required
             class="w-full px-4 py-2 rounded-md bg-green-700 text-white"
           />
         </div>
+        <div>
+          <label class="text-white font-semibold">Service Type:</label>
+          <select
+            v-model="serviceType"
+            required
+            class="w-full px-4 py-2 rounded-md bg-green-700 text-white"
+          >
+            <option value="" disabled>Select a service type</option>
+            <option value="Foodbank">Foodbank</option>
+            <option value="Shelters">Shelters</option>
+            <option value="Medical">Medical</option>
+          </select>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-yellow-400">&#9733;</span>
+          <label class="text-white font-semibold">Rating (1-5):</label>
+        </div>
+        <input
+          type="number"
+          v-model.number="rating"
+          min="1"
+          max="5"
+          required
+          class="w-full px-4 py-2 rounded-md bg-green-700 text-white"
+        />
         <div>
           <label class="text-white font-semibold">Review:</label>
           <textarea
@@ -35,45 +58,3 @@
     </div>
   </div>
 </template>
-
-
-<script setup>
-import { useSupabaseClient, useSupabaseUser } from '#imports'
-
-const supabase = useSupabaseClient()
-const user = useSupabaseUser()
-const rating = ref(0)
-const reviewText = ref('')
-
-const submitReview = async () => {
-  if (!user.value) {
-    // Handle case where user is not authenticated
-    return
-  }
-
-  const { data, error } = await supabase
-    .from('reviews')
-    .insert([{
-      user_id: user.value.id,
-      rating: rating.value,
-      review_text: reviewText.value,
-      // Add other columns as needed
-      // experience: 'Great experience!',
-      // service_type: 'Shelter',
-      // resource_id: 1,
-      // location: 'Sacramento, CA',
-    }])
-
-  if (error) {
-    // Handle error
-    console.error(error)
-  } else {
-    // Handle successful review submission
-    rating.value = 0
-    reviewText.value = ''
-    // Show success message or redirect to review list page
-  }
-}
-
-</script>
-
