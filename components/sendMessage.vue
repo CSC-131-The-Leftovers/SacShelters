@@ -15,6 +15,7 @@
 </template>
 
 <script>
+const supabase = useSupabaseClient();
 export default {
   data() {
     return {
@@ -22,6 +23,24 @@ export default {
       remind: "",
     };
   },
+
+  methods: {
+    async handleSubmit() {
+      const supabase = useSupabaseClient();
+      try {
+        await supabase.auth.signInWithPassword({
+          email: "messenger@gmail.com",
+          password: "123456",
+        });
+        console.log("User signed in successfully");
+        // Now you can send the message or do whatever you want here
+      } catch (error) {
+        console.log("Error signing in:");
+      }
+    },
+  },
+
+  /*
   methods: {
     handleSubmit() {
       console.log("Hello world");
@@ -45,6 +64,7 @@ export default {
         });
     },
   },
+  */
 };
 </script>
 
