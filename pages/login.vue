@@ -19,13 +19,12 @@ async function signIn() {
   <div>
     <section>
       <form @submit.prevent="signIn">
-        <input v-model="email" type="email" name="email" placeholder="Email" >
+        <input v-model="email" type="email" name="email" placeholder="Email" />
         <input
           v-model="password"
           type="text"
           name="password"
-          placeholder="Password"
-        >
+          placeholder="Password" />
       </form>
     </section>
   </div>

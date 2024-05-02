@@ -52,14 +52,14 @@ export default {
       }
     };
 
-    // Function to activate reminders at the specified time
+    // Function to activate reminders at the specified time and remove them after sending
     const activateReminders = async () => {
       const currentTime = new Date().toISOString();
       try {
         const { data, error } = await supabase
           .from("Messages")
           .select()
-          .lte("dateTime", currentTime); // Select reminders whose dateTime is less than or equal to the current time
+          .lte("dateTime", currentTime);
 
         if (error) {
           console.error("Error activating reminders:", error);
@@ -83,6 +83,18 @@ export default {
 
               const responseData = await response.json();
               console.log("Message sent:", responseData);
+
+              // Remove the sent message from the database
+              const { error } = await supabase
+                .from("Messages")
+                .delete()
+                .eq("phone_number", reminder.phone_number);
+
+              if (error) {
+                console.error("Error removing message:", error);
+              } else {
+                console.log("Message removed successfully");
+              }
             } catch (error) {
               console.error("Error sending message:", error);
             }
