@@ -1,5 +1,11 @@
 <template>
-  <signUp />
+  <div class="bg-cover bg-center min-h-screen" style="background-image: url('/stephen-leonardi-ExpyK79Dx_w-unsplash.jpg')">
+    <div class="bg-black bg-opacity-50 min-h-screen flex items-center justify-center">
+      <div class="bg-white p-8 rounded-lg shadow-lg">
+        <signUp />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
