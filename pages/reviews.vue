@@ -5,9 +5,6 @@
       <p>Rating: {{ review.rating }}</p>
       <p>{{ review.review_text }}</p>
       <!-- Display other columns as needed -->
-      <!-- <p>Experience: {{ review.experience }}</p>
-      <p>Service Type: {{ review.service_type }}</p>
-      <p>Location: {{ review.location }}</p> -->
     </div>
   </div>
 </template>
@@ -17,10 +14,10 @@ import { useSupabaseClient } from '#imports'
 
 const supabase = useSupabaseClient()
 
-const { data: reviews } = await useAsyncData('reviews', async () => {
+const { data: reviews } = await useFetch(async () => {
   const { data, error } = await supabase
     .from('reviews')
-    .select('*') // Or specify the columns you want to fetch
+    .select('*')
     .order('created_at', { ascending: false })
 
   if (error) {
