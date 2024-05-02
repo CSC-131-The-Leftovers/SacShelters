@@ -13,8 +13,6 @@
       <button type="submit">Send a message</button>
     </div>
   </form>
-  <p>phoneNum: {{ phoneNum }}</p>
-  <p>pass: {{ remind }}</p>
 </template>
 
 <script>

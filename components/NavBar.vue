@@ -1,15 +1,17 @@
 <template>
   <div class="navbar bg-neutral">
     <div class="navbar-start">
-      <NuxtLink to="/" class="btn btn-ghost flex items-center text-xl text-primary">
-        <img src="/THE HOMELY FOUNDATION (1).png" alt="Logo" class="h-10 mr-1" />
+      <NuxtLink
+        to="/"
+        class="btn btn-ghost flex items-center text-xl text-primary">
+        <img
+          src="/THE HOMELY FOUNDATION (1).png"
+          alt="Logo"
+          class="mr-1 h-10" />
         SacShelters
       </NuxtLink>
     </div>
     <div class="join navbar-end space-x-4">
-      <NuxtLink class="btn btn-primary" to="/send_message/displayMessage">
-        display message
-      </NuxtLink>
       <NuxtLink class="btn btn-primary" to="/send_message/message">
         Message
       </NuxtLink>
