@@ -29,6 +29,6 @@ const resources = ref(data);
 
 <style scoped>
 .router-link-active {
-  @apply bg-green-800 text-black;
+  @apply bg-primary text-black;
 }
 </style>

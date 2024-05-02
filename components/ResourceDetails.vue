@@ -10,7 +10,7 @@ console.log(props.id);
 
 const supabase = useSupabaseClient();
 
-const { data: resource } = await useAsyncData("resources", async () => {
+const { data: resource } = await useAsyncData("resource_details", async () => {
   const { data } = await supabase.from("resource").select().eq("id", props.id);
   return data;
 });
