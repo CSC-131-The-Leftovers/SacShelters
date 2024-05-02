@@ -20,71 +20,89 @@
 <script>
 const supabase = useSupabaseClient();
 export default {
-  data() {
-    return {
-      phoneNum: "",
-      remind: "",
-    };
-  },
+  setup() {
+    const phoneNum = ref("");
+    const remind = ref("");
+    const dateTime = ref("");
 
-  methods: {
-    async handleSubmit() {
-      const supabase = useSupabaseClient();
+    const supabase = useSupabaseClient();
+
+    const handleSubmit = async () => {
       try {
         const { data, error } = await supabase.from("Messages").insert([
           {
-            phone_number: this.phoneNum,
-            message: this.remind,
-            dateTime: this.dateTime,
+            phone_number: phoneNum.value,
+            message: remind.value,
+            dateTime: dateTime.value,
           },
         ]);
 
         if (error) {
           console.error("Error adding reminder:", error.message);
-          alert("Error adding reminder. Please try again later.");
         } else {
           console.log("Reminder added successfully:", data);
           alert("Reminder added successfully!");
           // Clear input fields after successful submission if needed
-          this.phoneNum = "";
-          this.remind = "";
+          phoneNum.value = "";
+          remind.value = "";
+          dateTime.value = "";
         }
       } catch (error) {
         console.error("Error adding reminder:", error.message);
-        alert("Error adding reminder. Please try again later.");
       }
-    },
+    };
+
+    // Function to activate reminders at the specified time
+    const activateReminders = async () => {
+      const currentTime = new Date().toISOString();
+      try {
+        const { data, error } = await supabase
+          .from("Messages")
+          .select()
+          .lte("dateTime", currentTime); // Select reminders whose dateTime is less than or equal to the current time
+
+        if (error) {
+          console.error("Error activating reminders:", error);
+          return;
+        }
+
+        if (data && data.length > 0) {
+          data.forEach(async (reminder) => {
+            console.log("Activating reminder:", reminder);
+            // Send a message
+            try {
+              const response = await fetch("https://textbelt.com/text", {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  phone: reminder.phone_number,
+                  message: reminder.message,
+                  key: "036cc0b0e840bcbf56983e97475c379b48e290a4c4VAElcfsgfeOOtAt2XWjJszu",
+                }),
+              });
+
+              const responseData = await response.json();
+              console.log("Message sent:", responseData);
+            } catch (error) {
+              console.error("Error sending message:", error);
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Error activating reminders:", error);
+      }
+    };
+
+    // Schedule the activateReminders function to run every minute
+    setInterval(activateReminders, 60000);
+
+    return {
+      phoneNum,
+      remind,
+      dateTime,
+      handleSubmit,
+    };
   },
-
-  /*
-
-  const { data, error } = await supabase.from('your_table_name').insert([
-          { phone_number: this.phoneNum, message: this.remind }
-
-  methods: {
-    handleSubmit() {
-      console.log("Hello world");
-      fetch("https://textbelt.com/text", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          phone: this.phoneNum,
-          message: this.remind,
-          key: "036cc0b0e840bcbf56983e97475c379b48e290a4c4VAElcfsgfeOOtAt2XWjJszu",
-        }),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error("Error sending message:", error);
-        });
-    },
-  },
-  */
 };
 </script>
 
