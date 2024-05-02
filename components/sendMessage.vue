@@ -28,19 +28,32 @@ export default {
     async handleSubmit() {
       const supabase = useSupabaseClient();
       try {
-        await supabase.auth.signInWithPassword({
-          email: "messenger@gmail.com",
-          password: "123456",
-        });
-        console.log("User signed in successfully");
-        // Now you can send the message or do whatever you want here
+        const { data, error } = await supabase
+          .from("Messages")
+          .insert([{ phone_number: this.phoneNum, message: this.remind }]);
+
+        if (error) {
+          console.error("Error adding reminder:", error.message);
+          alert("Error adding reminder. Please try again later.");
+        } else {
+          console.log("Reminder added successfully:", data);
+          alert("Reminder added successfully!");
+          // Clear input fields after successful submission if needed
+          this.phoneNum = "";
+          this.remind = "";
+        }
       } catch (error) {
-        console.log("Error signing in:");
+        console.error("Error adding reminder:", error.message);
+        alert("Error adding reminder. Please try again later.");
       }
     },
   },
 
   /*
+
+  const { data, error } = await supabase.from('your_table_name').insert([
+          { phone_number: this.phoneNum, message: this.remind }
+
   methods: {
     handleSubmit() {
       console.log("Hello world");
