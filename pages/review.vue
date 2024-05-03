@@ -80,24 +80,29 @@ const submitReview = async () => {
   }
 
   console.log('Submitting review:', {
+    id: uuidv4(), // Generate a UUID for the review ID
     user_id: user.value.id,
     rating: rating.value,
-    review_text: reviewText.value,
-    facility_name: facilityName.value,
     service_type: serviceType.value,
+    resource_id: null, // Update with the appropriate resource ID if available
+    facilityName: facilityName.value,
+    review_text: reviewText.value,
+    created_at: new Date().toISOString(),
     additional_field: additionalField.value, // Include the additional field in the object
   })
 
   const { data, error } = await supabase
     .from('reviews')
     .insert([{
+      id: uuidv4(), // Generate a UUID for the review ID
       user_id: user.value.id,
       rating: rating.value,
-      review_text: reviewText.value,
-      facility_name: facilityName.value,
       service_type: serviceType.value,
+      resource_id: null, // Update with the appropriate resource ID if available
+      facilityName: facilityName.value,
+      review_text: reviewText.value,
+      created_at: new Date().toISOString(),
       additional_field: additionalField.value, // Include the additional field in the object
-      created_at: new Date(), // Add the current timestamp
     }])
 
   if (error) {
