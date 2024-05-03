@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="container flex h-screen w-64 flex-col gap-2 bg-gray-900">
+    <div class="flex h-screen w-64 flex-col gap-2 bg-base-200 p-2">
+      <p>{{ googleMaps }}</p>
       <NuxtLink
         v-for="r in resources"
         :key="r.id"
         :to="`/shelters/${r.id}`"
-        class="h-24 bg-gray-600 p-4">
+        class="card h-24 bg-neutral p-4 text-neutral-content">
         <h3 class="text-2xl font-bold">{{ r.name }}</h3>
         <p>{{ r.resource_type }}</p>
       </NuxtLink>
@@ -16,7 +17,7 @@
 <script setup lang="js">
 const supabase = useSupabaseClient();
 
-const { data } = await useAsyncData("resources", async () => {
+const { data: resources } = await useAsyncData("resources", async () => {
   const { data } = await supabase
     .from("resource")
     .select()
@@ -24,11 +25,15 @@ const { data } = await useAsyncData("resources", async () => {
   return data;
 });
 
-const resources = ref(data);
+const { data: googleMaps } = await useFetch("/api/googleMaps");
+
+console.log(googleMaps);
+
+// const resources = ref(data);
 </script>
 
 <style scoped>
 .router-link-active {
-  @apply bg-primary text-black;
+  @apply bg-secondary text-secondary-content;
 }
 </style>
