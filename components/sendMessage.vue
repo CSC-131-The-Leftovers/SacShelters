@@ -1,22 +1,55 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <label>Phone Number: </label>
-    <input v-model="phoneNum" type="number" required />
+  <div
+    class="min-h-screen bg-cover bg-center"
+    style="
+      background-image: url(&quot;/stephen-leonardi-ExpyK79Dx_w-unsplash.jpg&quot;);
+    ">
+    <div
+      class="flex min-h-screen items-center justify-center bg-black bg-opacity-50">
+      <div class="rounded-lg bg-white p-8 shadow-lg">
+        <h1 class="mb-6 text-3xl font-bold text-green-900">Send Message</h1>
+        <form class="space-y-4" @submit.prevent="handleSubmit">
+          <div>
+            <label class="font-semibold text-green-900">Phone Number:</label>
+            <input
+              v-model="phoneNum"
+              type="number"
+              required
+              placeholder="Enter phone number"
+              class="w-full rounded-md bg-gray-200 px-4 py-2 text-green-900" />
+          </div>
 
-    <label>Message: </label>
-    <input v-model="remind" type="string" required />
+          <div>
+            <label class="font-semibold text-green-900">Message:</label>
+            <input
+              v-model="remind"
+              type="string"
+              required
+              placeholder="Enter your message"
+              class="w-full rounded-md bg-gray-200 px-4 py-2 text-green-900" />
+          </div>
 
-    <label>Date and Time: </label>
-    <input v-model="dateTime" type="datetime-local" required />
+          <div>
+            <label class="font-semibold text-green-900">Date and Time:</label>
+            <input
+              v-model="dateTime"
+              type="datetime-local"
+              required
+              class="w-full rounded-md bg-gray-200 px-4 py-2 text-green-900" />
+          </div>
 
-    <div class="submit">
-      <button type="submit">Send a message</button>
+          <button
+            type="submit"
+            class="w-full rounded-md bg-green-600 py-2 font-semibold text-white transition-colors duration-300 hover:bg-green-500">
+            Send a message
+          </button>
+        </form>
+      </div>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
-const supabase = useSupabaseClient();
 export default {
   setup() {
     const phoneNum = ref("");
@@ -26,10 +59,85 @@ export default {
     const supabase = useSupabaseClient();
 
     const handleSubmit = async () => {
-      // Your existing handleSubmit logic goes here
+      try {
+        const { data, error } = await supabase.from("Messages").insert([
+          {
+            phone_number: phoneNum.value,
+            message: remind.value,
+            dateTime: dateTime.value,
+          },
+        ]);
+
+        if (error) {
+          console.error("Error adding reminder:", error.message);
+        } else {
+          console.log("Reminder added successfully:", data);
+          alert("Reminder added successfully!");
+          // Clear input fields after successful submission if needed
+          phoneNum.value = "";
+          remind.value = "";
+          dateTime.value = "";
+        }
+      } catch (error) {
+        console.error("Error adding reminder:", error.message);
+      }
     };
 
-    // Your existing activateReminders logic goes here
+    // Function to activate reminders at the specified time and remove them after sending
+    const activateReminders = async () => {
+      const currentTime = new Date().toISOString();
+      try {
+        const { data, error } = await supabase
+          .from("Messages")
+          .select()
+          .lte("dateTime", currentTime);
+
+        if (error) {
+          console.error("Error activating reminders:", error);
+          return;
+        }
+
+        if (data && data.length > 0) {
+          data.forEach(async (reminder) => {
+            console.log("Activating reminder:", reminder);
+            // Send a message
+            try {
+              const response = await fetch("https://textbelt.com/text", {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  phone: reminder.phone_number,
+                  message: reminder.message,
+                  key: "036cc0b0e840bcbf56983e97475c379b48e290a4c4VAElcfsgfeOOtAt2XWjJszu",
+                }),
+              });
+
+              const responseData = await response.json();
+              console.log("Message sent:", responseData);
+
+              // Remove the sent message from the database
+              const { error } = await supabase
+                .from("Messages")
+                .delete()
+                .eq("phone_number", reminder.phone_number);
+
+              if (error) {
+                console.error("Error removing message:", error);
+              } else {
+                console.log("Message removed successfully");
+              }
+            } catch (error) {
+              console.error("Error sending message:", error);
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Error activating reminders:", error);
+      }
+    };
+
+    // Schedule the activateReminders function to run every minute
+    setInterval(activateReminders, 90000);
 
     return {
       phoneNum,
@@ -45,15 +153,14 @@ export default {
 form {
   max-width: 420px;
   margin: 30px auto;
-  background: grey;
   text-align: left;
-  padding: 40px;
+  padding: 20px;
   border-radius: 10px;
 }
 label {
-  color: white;
+  color: #555;
   display: inline-block;
-  margin: 25px 0 15px;
+  margin: 15px 0 5px;
   font-size: 0.6em;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -62,7 +169,7 @@ label {
 input,
 select {
   display: block;
-  padding: 10px 6px;
+  padding: 5px 6px;
   width: 100%;
   box-sizing: border-box;
   border: none;
@@ -91,8 +198,7 @@ input[type="checkbox"] {
 button {
   background: #0b6dff;
   border: 0;
-  padding: 10px 20px;
-  margin-top: 30px;
+  padding: 5px 20px;
   color: white;
   border-radius: 20px;
 }
