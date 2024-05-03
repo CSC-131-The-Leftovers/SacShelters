@@ -4,19 +4,27 @@
       <div class="max-w-4xl mx-auto py-12">
         <h1 class="text-3xl font-bold text-white mb-6 text-center">Reviews</h1>
         <div v-if="reviews.length > 0">
-          <div v-for="review in reviews" :key="review.id" class="mb-4 p-4 bg-white rounded-lg shadow-md">
-            <div class="flex items-center mb-2">
-              <div class="flex items-center mr-2">
-                <span v-for="star in review.rating" :key="star" class="text-yellow-400">&#9733;</span>
-                <span v-for="star in 5 - review.rating" :key="star" class="text-gray-400">&#9733;</span>
+          <div v-for="review in reviews" :key="review.id" class="mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <!-- Review Header -->
+              <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center">
+                  <!-- Display rating stars -->
+                  <div class="flex items-center mr-2">
+                    <span v-for="star in review.rating" :key="star" class="text-yellow-400 text-lg">&#9733;</span>
+                    <span v-for="star in 5 - review.rating" :key="star" class="text-gray-400 text-lg">&#9733;</span>
+                  </div>
+                  <!-- Display service type -->
+                  <p class="text-lg text-gray-500">{{ review.service_type }}</p>
+                </div>
+                <!-- Display facility name -->
+                <p class="text-lg text-gray-500">Facility: {{ review.facilityName }}</p>
+                <!-- Display date -->
+                <p class="text-lg text-gray-500">{{ formatDate(review.created_at) }}</p>
               </div>
-              <p class="text-sm text-gray-500">{{ review.service_type }}</p>
+              <!-- Review Text -->
+              <p class="text-gray-800">{{ review.review_text }}</p>
             </div>
-            <p class="text-gray-800">{{ review.review_text }}</p>
-            <p class="text-sm text-gray-500">Facility: {{ review.facility_name }}</p>
-            <p class="text-sm text-gray-500">facilityName: {{ review.facilityName }}</p>
-            <p class="text-sm text-gray-500">Experience: {{ review.experience }}</p>
-            <p class="text-sm text-gray-500">User ID: {{ review.user_id }}</p>
           </div>
         </div>
         <div v-else class="text-white text-center">No reviews found.</div>
@@ -26,30 +34,42 @@
 </template>
 
 <script setup>
-import { useSupabaseClient, useFetch, onMounted } from '#imports'
+import { useSupabaseClient, onMounted } from '#imports'
 
+// Import Supabase client
 const supabase = useSupabaseClient()
+
+// Define a reactive variable to store reviews
 const reviews = ref([])
 
+// Fetch reviews from Supabase database
 onMounted(async () => {
-  const { data, error } = await useFetch(async () => {
-    const { data: reviewsData, error: fetchError } = await supabase
+  try {
+    // Fetch reviews data from Supabase
+    const { data, error } = await supabase
       .from('reviews')
       .select('*')
       .order('created_at', { ascending: false })
 
-    if (fetchError) {
-      console.error(fetchError)
-      return []
+    if (error) {
+      console.error('Error fetching reviews:', error.message)
+      return
     }
 
-    return reviewsData
-  })
-
-  if (error.value) {
-    console.error(error.value)
-  } else {
-    reviews.value = data.value
+    // Update the reviews array with fetched data
+    reviews.value = data || []
+  } catch (error) {
+    console.error('Error fetching reviews:', error.message)
   }
 })
+
+// Format date function
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' }
+  return new Date(dateString).toLocaleDateString(undefined, options)
+}
 </script>
+
+<style scoped>
+/* Add custom styles here if needed */
+</style>
