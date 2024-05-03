@@ -70,6 +70,7 @@ const facilityName = ref('')
 const serviceType = ref('')
 const rating = ref(0)
 const reviewText = ref('')
+const additionalField = ref('') // Add any additional fields you want to store
 
 const submitReview = async () => {
   console.log('submitReview called')
@@ -84,6 +85,7 @@ const submitReview = async () => {
     review_text: reviewText.value,
     facility_name: facilityName.value,
     service_type: serviceType.value,
+    additional_field: additionalField.value, // Include the additional field in the object
   })
 
   const { data, error } = await supabase
@@ -94,9 +96,7 @@ const submitReview = async () => {
       review_text: reviewText.value,
       facility_name: facilityName.value,
       service_type: serviceType.value,
-      experience: '', // Add any additional columns as needed
-      resource_id: null, // Set a default value or provide the appropriate value
-      facilityName: '', // Add any additional columns as needed
+      additional_field: additionalField.value, // Include the additional field in the object
       created_at: new Date(), // Add the current timestamp
     }])
 
@@ -109,10 +109,7 @@ const submitReview = async () => {
     reviewText.value = ''
     facilityName.value = ''
     serviceType.value = ''
+    additionalField.value = '' // Reset the additional field after submission
   }
 }
-
-
-
-
 </script>
