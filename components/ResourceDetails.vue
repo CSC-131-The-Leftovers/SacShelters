@@ -5,6 +5,7 @@
       Address: {{ resource.address }}
     </p>
     <!-- <p>Raw info: {{ resource }}</p> -->
+    <button class="btn btn-secondary">Write review</button>
     <p>Reviews: {{ reviews }}</p>
   </div>
 </template>
