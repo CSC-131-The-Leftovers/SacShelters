@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="container flex h-screen w-64 flex-col gap-2 bg-gray-900">
+    <div class="flex h-screen w-64 flex-col gap-2 bg-base-200 p-2">
       <NuxtLink
         v-for="r in resources"
         :key="r.id"
         :to="`/shelters/${r.id}`"
-        class="h-24 bg-gray-600 p-4">
+        class="card h-24 bg-neutral p-4 text-neutral-content">
         <h3 class="text-2xl font-bold">{{ r.name }}</h3>
         <p>{{ r.resource_type }}</p>
       </NuxtLink>
@@ -29,6 +29,6 @@ const resources = ref(data);
 
 <style scoped>
 .router-link-active {
-  @apply bg-primary text-black;
+  @apply bg-secondary text-secondary-content;
 }
 </style>
