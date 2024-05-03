@@ -1,11 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="bg-cover bg-center min-h-screen" style="background-image: url('/stephen-leonardi-ExpyK79Dx_w-unsplash.jpg')">
-    <div class="bg-black bg-opacity-50 min-h-screen flex items-center justify-center">
-      <div class="bg-white p-8 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold text-green-900 mb-4">Send Message</h1>
-        <form class="space-y-2" @submit.prevent="handleSubmit">
-=======
   <div
     class="min-h-screen bg-cover bg-center"
     style="
@@ -16,7 +9,6 @@
       <div class="rounded-lg bg-white p-8 shadow-lg">
         <h1 class="mb-6 text-3xl font-bold text-green-900">Send Message</h1>
         <form class="space-y-4" @submit.prevent="handleSubmit">
->>>>>>> 33f1077f4964db5b593d1218f8a48fdb421e5ae9
           <div>
             <label class="font-semibold text-green-900">Phone Number:</label>
             <input
@@ -24,12 +16,7 @@
               type="number"
               required
               placeholder="Enter phone number"
-<<<<<<< HEAD
-              class="w-full px-4 py-1 rounded-md bg-gray-200 text-green-900"
-            />
-=======
               class="w-full rounded-md bg-gray-200 px-4 py-2 text-green-900" />
->>>>>>> 33f1077f4964db5b593d1218f8a48fdb421e5ae9
           </div>
 
           <div>
@@ -39,12 +26,7 @@
               type="string"
               required
               placeholder="Enter your message"
-<<<<<<< HEAD
-              class="w-full px-4 py-1 rounded-md bg-gray-200 text-green-900"
-            />
-=======
               class="w-full rounded-md bg-gray-200 px-4 py-2 text-green-900" />
->>>>>>> 33f1077f4964db5b593d1218f8a48fdb421e5ae9
           </div>
 
           <div>
@@ -53,22 +35,12 @@
               v-model="dateTime"
               type="datetime-local"
               required
-<<<<<<< HEAD
-              class="w-full px-4 py-1 rounded-md bg-gray-200 text-green-900"
-            />
-=======
               class="w-full rounded-md bg-gray-200 px-4 py-2 text-green-900" />
->>>>>>> 33f1077f4964db5b593d1218f8a48fdb421e5ae9
           </div>
 
           <button
             type="submit"
-<<<<<<< HEAD
-            class="w-full bg-green-600 text-white font-semibold py-1 rounded-md hover:bg-green-500 transition-colors duration-300 mt-2"
-          >
-=======
             class="w-full rounded-md bg-green-600 py-2 font-semibold text-white transition-colors duration-300 hover:bg-green-500">
->>>>>>> 33f1077f4964db5b593d1218f8a48fdb421e5ae9
             Send a message
           </button>
         </form>
