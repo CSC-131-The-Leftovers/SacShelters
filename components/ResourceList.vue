@@ -25,7 +25,7 @@ const { data: resources } = await useAsyncData("resources", async () => {
   return data;
 });
 
-const { data: googleMaps } = await useFetch("/api/googleMaps");
+const { data: googleMaps } = await useFetch("/api/googleMaps?zip=95628");
 
 // const resources = ref(data);
 </script>
