@@ -50,7 +50,6 @@
 </template>
 
 <script>
-const supabase = useSupabaseClient();
 export default {
   setup() {
     const phoneNum = ref("");
