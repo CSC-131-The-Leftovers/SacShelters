@@ -1,8 +1,7 @@
 export default defineEventHandler((event) => {
-  const query = getQuery(event);
+  const { zip } = getQuery(event);
 
-  console.log(query);
   return {
-    message: `Hello this is definitely the google maps api`,
+    message: `Hello this is definitely the google maps api. the zip you asked for is ${zip}`,
   };
 });
