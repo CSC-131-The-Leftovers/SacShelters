@@ -1,12 +1,27 @@
 <template>
   <div>
-    <p class="text-4xl font-bold">{{ resource.name }}</p>
+    <!-- <p class="text-4xl font-bold">{{ resource.name }}</p>
     <p v-if="resource.address" class="text-2xl">
       Address: {{ resource.address }}
     </p>
-    <!-- <p>Raw info: {{ resource }}</p> -->
     <button class="btn btn-secondary">Write review</button>
-    <p>Reviews: {{ reviews }}</p>
+    <p>Reviews: {{ reviews }}</p> -->
+    <div v-if="data.status === 'OK'">
+      <h1 class="text-4xl font-bold">{{ data.result.name }}</h1>
+      <p>Address: {{ data.result.formatted_address }}</p>
+      <p>
+        Google maps rating: {{ data.result.rating }} ({{
+          data.result.user_ratings_total
+        }}
+        reviews)
+      </p>
+      <p v-if="data.result.current_opening_hours">
+        Hours: {{ data.result.current_opening_hours }}
+      </p>
+      <!-- <p>{{ data.result }}</p> -->
+    </div>
+    <div v-else>{{ data }}</div>
+    <!-- <p>{{ data }}</p> -->
   </div>
 </template>
 
@@ -14,20 +29,26 @@
 const props = defineProps<{ id: string }>();
 console.log(props.id);
 
-const supabase = useSupabaseClient();
+// const supabase = useSupabaseClient();
 
-const { data: resource } = await useAsyncData("resource_details", async () => {
-  const { data } = await supabase.from("resource").select().eq("id", props.id);
-  return data![0];
+// const { data: resource } = await useAsyncData("resource_details", async () => {
+//   const { data } = await supabase.from("resource").select().eq("id", props.id);
+//   return data![0];
+// });
+
+const { data } = await useFetch("/api/googleMaps/placeDetails", {
+  query: {
+    id: props.id,
+  },
 });
 
-const { data: reviews } = await useAsyncData("reviews", async () => {
-  const { data } = await supabase
-    .from("reviews")
-    .select()
-    .eq("resource_id", props.id);
-  return data;
-});
+// const { data: reviews } = await useAsyncData("reviews", async () => {
+//   const { data } = await supabase
+//     .from("reviews")
+//     .select()
+//     .eq("resource_id", props.id);
+//   return data;
+// });
 </script>
 
 <style scoped></style>

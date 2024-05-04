@@ -1,22 +1,23 @@
 <template>
   <div>
-    <div class="h-screen w-64 flex-col gap-2 bg-base-200">
-      <div class="bg-primary p-2">
+    <div class="h-full w-96 bg-base-200">
+      <div class="w-full bg-primary py-2">
         <input
           v-model="zip"
           type="text"
-          class="input input-primary"
+          class="input input-primary w-auto"
           placeholder="zip code"
           @keyup.enter="getMapsData" />
       </div>
-      <NuxtLink
-        v-for="r in mapsData"
-        :key="r['place_id']"
-        :to="`/shelters/${r['place_id']}`"
-        class="card bg-neutral p-2 text-neutral-content">
-        <p class="text-2xl font-bold">{{ r["name"] }}</p>
-        {{ r }}</NuxtLink
-      >
+        <NuxtLink
+          v-for="r in mapsData"
+          :key="r['place_id']"
+          :to="`/shelters/${r['place_id']}`"
+          class="card m-2 bg-neutral p-2 text-neutral-content">
+          <p class="text-xl font-bold">{{ r["name"] }}</p>
+          <!-- {{ r }} -->
+        </NuxtLink>
+      </div>
       <!-- <NuxtLink
         v-for="r in resources"
         :key="r.id"
@@ -45,8 +46,7 @@ const zip = useState("zip");
 const mapsData = useState("mapsData");
 
 async function getMapsData() {
-  // alert(`zip is ${zip.value}`);
-  const { data } = await await useFetch("/api/googleMaps", {
+  const { data } = await useFetch("/api/googleMaps/textSearch", {
     query: {
       query: `homeless shelters near ${zip.value}`,
     },
