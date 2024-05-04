@@ -9,16 +9,16 @@
           placeholder="zip code"
           @keyup.enter="getMapsData" />
       </div>
-        <NuxtLink
-          v-for="r in mapsData"
-          :key="r['place_id']"
-          :to="`/shelters/${r['place_id']}`"
-          class="card m-2 bg-neutral p-2 text-neutral-content">
-          <p class="text-xl font-bold">{{ r["name"] }}</p>
-          <!-- {{ r }} -->
-        </NuxtLink>
-      </div>
-      <!-- <NuxtLink
+      <NuxtLink
+        v-for="r in mapsData"
+        :key="r['place_id']"
+        :to="`/shelters/${r['place_id']}`"
+        class="card m-2 bg-neutral p-2 text-neutral-content">
+        <p class="text-xl font-bold">{{ r["name"] }}</p>
+        <!-- {{ r }} -->
+      </NuxtLink>
+    </div>
+    <!-- <NuxtLink
         v-for="r in resources"
         :key="r.id"
         :to="`/shelters/${r.id}`"
@@ -26,7 +26,6 @@
         <h3 class="text-2xl font-bold">{{ r.name }}</h3>
         <p>{{ r.resource_type }}</p>
       </NuxtLink> -->
-    </div>
   </div>
 </template>
 

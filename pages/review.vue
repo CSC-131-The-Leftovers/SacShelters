@@ -3,12 +3,12 @@
     <div class="bg-black bg-opacity-50 min-h-screen flex items-center justify-center">
       <div class="bg-white p-8 rounded-lg shadow-lg">
         <h1 class="text-3xl font-bold text-green-900 mb-6">Write a Review</h1>
-        <form @submit.prevent="submitReview" class="space-y-4">
+        <form class="space-y-4" @submit.prevent="submitReview">
           <div>
             <label class="text-green-900 font-semibold">Facility Name:</label>
             <input
-              type="text"
               v-model="facilityName"
+              type="text"
               required
               class="w-full px-4 py-2 rounded-md bg-gray-200 text-green-900"
             />
@@ -31,8 +31,8 @@
             <label class="text-green-900 font-semibold">Rating (1-5):</label>
           </div>
           <input
-            type="number"
             v-model.number="rating"
+            type="number"
             min="1"
             max="5"
             required

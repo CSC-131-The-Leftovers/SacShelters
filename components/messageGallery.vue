@@ -4,10 +4,10 @@
       <div class="-m-1 flex flex-wrap md:-m-2">
         <message
           v-for="message in message"
+          :key="message.id"
           :phone_num="message.phone_number"
-          :dateTime="message.dateTime"
-          :message="message.message"
-          :key="message.id" />
+          :date-time="message.dateTime"
+          :message="message.message" />
       </div>
     </div>
   </section>

@@ -21,7 +21,7 @@ async function signIn() {
     <div class="bg-black bg-opacity-50 min-h-screen flex items-center justify-center">
       <div class="bg-white p-8 rounded-lg shadow-lg">
         <h1 class="text-3xl font-bold text-green-900 mb-6">Login</h1>
-        <form @submit.prevent="signIn" class="space-y-4">
+        <form class="space-y-4" @submit.prevent="signIn">
           <div>
             <label class="text-green-900 font-semibold">Email:</label>
             <input
