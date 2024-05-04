@@ -1,5 +1,3 @@
-// import { useFetch } from "nuxt/app";
-
 export default defineEventHandler(async (event) => {
   // get zip code from query
   const { query } = getQuery(event);
