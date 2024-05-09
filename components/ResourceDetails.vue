@@ -16,7 +16,7 @@
         reviews)
       </p>
       <p v-if="data.result.current_opening_hours">
-        Hours: {{ data.result.current_opening_hours }}
+        Hours: {{ data.result.current_opening_hours.weekday_text }}
       </p>
       <!-- <p>{{ data.result }}</p> -->
     </div>
